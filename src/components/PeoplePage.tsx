@@ -22,7 +22,10 @@ export const PeoplePage = () => {
   }, []);
 
   function findParentInPeople(person: Person) {
-    const parent = people.find(p => p.name === person.motherName);
+    const parent =
+      person.sex === 'f'
+        ? people.find(p => p.name === person.motherName)
+        : people.find(p => p.name === person.fatherName);
 
     if (parent) {
       return <PersonLink person={parent} />;
