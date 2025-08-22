@@ -21,25 +21,24 @@ export const PeoplePage = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  function findParentInPeople(person: Person) {
-    const parent =
-      person.sex === 'f'
-        ? people.find(p => p.name === person.motherName)
-        : people.find(p => p.name === person.fatherName);
+  function findMotherInPeople(person: Person) {
+    const mother = people.find(p => p.name === person.motherName);
 
-    if (parent) {
-      return <PersonLink person={parent} />;
+    if (mother) {
+      return <PersonLink person={mother} />;
     }
 
-    if (person.sex === 'f') {
-      return person.motherName ? person.motherName : '-';
+    return person.motherName ? person.motherName : '-';
+  }
+
+  function findFatherInPeople(person: Person) {
+    const father = people.find(p => p.name === person.fatherName);
+
+    if (father) {
+      return <PersonLink person={father} />;
     }
 
-    if (person.sex === 'm') {
-      return person.fatherName ? person.fatherName : '-';
-    }
-
-    return;
+    return person.fatherName ? person.fatherName : '-';
   }
 
   return (
@@ -100,8 +99,8 @@ export const PeoplePage = () => {
                       <td>{person.sex}</td>
                       <td>{person.born}</td>
                       <td>{person.died}</td>
-                      <td>{findParentInPeople(person)}</td>
-                      <td>{findParentInPeople(person)}</td>
+                      <td>{findMotherInPeople(person)}</td>
+                      <td>{findFatherInPeople(person)}</td>
                     </tr>
                   ))}
                 </tbody>
